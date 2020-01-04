@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const app = express();
 const axios = require("axios");
 
+const repositoriesController = require("./utils/repositoriesController");
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +21,34 @@ app.get("/repositories", async (req, res) => {
     });;
 
     res.send(response.data);
+});
+
+app.post("/bookmarks", async (req, res) => {
+    const { id, name, html_url, description, owner } = req.body;
+
+    repositoriesController.addBookmark({
+        id,
+        name,
+        html_url,
+        description,
+        owner: owner.login
+    })
+
+    res.send({ status: "OK" });
+});
+
+app.get("/bookmarks", async (req, res) => {
+    const bookmarks = repositoriesController.fetchBookmarks();
+
+    res.send(bookmarks);
+});
+
+app.delete("/bookmarks/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+
+    repositoriesController.deleteBookmark(id);
+
+    res.send({ status: "OK" });
 });
 
 app.listen(port, () => {
