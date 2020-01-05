@@ -3,10 +3,10 @@ const path = require("path");
 
 const fetchBookmarks = () => {
     try {
-        let postString = fs.readFileSync(
+        const bookmarks = fs.readFileSync(
             path.join(__dirname, "../data/repositories.json")
         );
-        return JSON.parse(postString);
+        return JSON.parse(bookmarks);
     } catch (e) {
         return [];
     }
@@ -14,11 +14,13 @@ const fetchBookmarks = () => {
 
 const addBookmark = bookmark => {
     let data = fetchBookmarks();
-    data.push(bookmark);
-    fs.writeFileSync(
-        path.join(__dirname, "../data/repositories.json"),
-        JSON.stringify(data)
-    );
+    if (!data.some(el => el.id === bookmark.id)) {
+        data.push(bookmark);
+        fs.writeFileSync(
+            path.join(__dirname, "../data/repositories.json"),
+            JSON.stringify(data)
+        );
+    }
 };
 
 const deleteBookmark = id => {
