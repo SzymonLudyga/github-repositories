@@ -2,14 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const axios = require("axios");
+const cors = require('cors');
 
 const repositoriesController = require("./utils/repositoriesController");
 
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
-const port = 3000;
+const port = 8000;
 
 app.get("/repositories", async (req, res) => {
     const query = req.query.q;
@@ -18,9 +20,9 @@ app.get("/repositories", async (req, res) => {
         method: 'get',
         url: `https://api.github.com/search/repositories?q=${query}`,
         responseType: 'json'
-    });;
+    });
 
-    res.send(response.data);
+    res.send(response.data.items);
 });
 
 app.post("/bookmarks", async (req, res) => {
