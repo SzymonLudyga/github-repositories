@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Home from '../components/Home';
 
 import { fetchRepositories } from '../actions/repository'
+import { addBookmark } from '../actions/bookmark'
 
 const styles = () => ({
     
@@ -17,7 +18,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchRepositories: query => dispatch(fetchRepositories(query))
+        fetchRepositories: query => dispatch(fetchRepositories(query)),
+        addBookmark: id => dispatch(addBookmark(id)),
     };
 }
 

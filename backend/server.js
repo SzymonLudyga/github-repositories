@@ -25,8 +25,16 @@ app.get("/repositories", async (req, res) => {
     res.send(response.data.items);
 });
 
-app.post("/bookmarks", async (req, res) => {
-    const { id, name, html_url, description, owner } = req.body;
+app.post("/bookmarks/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+
+    const response = await axios({
+        method: 'get',
+        url: `https://api.github.com/repositories/${id}`,
+        responseType: 'json'
+    });
+
+    const { name, html_url, description, owner } = response.data;
 
     repositoriesController.addBookmark({
         id,
