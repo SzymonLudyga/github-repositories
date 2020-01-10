@@ -1,6 +1,7 @@
-import { postBookmark, getBookmarks, deleteBookmark } from '../api/bookmark'
+import { apiCall } from '../api/api';
 
 export const BOOKMARKS_RECEIVED = 'BOOKMARKS_RECEIVED'
+export const BOOKMARKS_FETCHING = 'BOOKMARKS_FETCHING'
 
 const _bookmarksReceived = bookmarks => {
     return {
@@ -9,10 +10,17 @@ const _bookmarksReceived = bookmarks => {
     };
 }
 
+const _loadingIndicator = fetching => {
+    return {
+        type: BOOKMARKS_FETCHING,
+        fetching,
+    };
+}
+
 export const addBookmark = id => {
     return async (dispatch) => {
         try {
-            const res = await postBookmark(id);
+            const res = await apiCall('post', `bookmarks/${id}`);
         } catch (e) {
             console.log(e);
         }
@@ -21,11 +29,13 @@ export const addBookmark = id => {
 
 export const fetchBookmarks = () => {
     return async (dispatch) => {
+        dispatch(_loadingIndicator(true));
         try {
-            const res = await getBookmarks();
-            console.log(res.data)
+            const res = await apiCall('get', 'bookmarks');
+            dispatch(_loadingIndicator(false));
             dispatch(_bookmarksReceived(res.data));
         } catch (e) {
+            dispatch(_loadingIndicator(false));
             console.log(e);
         }
     };
@@ -33,10 +43,14 @@ export const fetchBookmarks = () => {
 
 export const removeBookmark = id => {
     return async (dispatch) => {
+        dispatch(_loadingIndicator(true));
         try {
-            const res = await deleteBookmark(id);
+            const res = await apiCall('delete', `bookmarks/${id}`);
+            dispatch(_loadingIndicator(false));
+            dispatch(_bookmarksReceived(res.data));
         } catch (e) {
             console.log(e);
+            dispatch(_loadingIndicator(false));
         }
     };
 }

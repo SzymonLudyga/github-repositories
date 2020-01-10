@@ -7,12 +7,30 @@ import { fetchRepositories } from '../actions/repository'
 import { addBookmark } from '../actions/bookmark'
 
 const styles = () => ({
-    
+    inputWithButton: {
+        display: 'flex',
+        alignItems: 'right',
+        justifyContent: 'space-around',
+        width: '100%',
+        marginBottom: 10,
+    },
+    input: {
+        width: '70%'
+    },
+    button: {
+        width: '25%'
+    },
+    loading: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 function mapStateToProps(state) {
     return {
-        repositories: state.repository.repositories
+        repositories: state.repository.repositories,
+        fetching: state.repository.fetchingRepositories
     };
 }
 

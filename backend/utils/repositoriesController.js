@@ -30,6 +30,7 @@ const deleteBookmark = id => {
         path.join(__dirname, "../data/repositories.json"),
         JSON.stringify(newData)
     );
+    return newData;
 };
 
 

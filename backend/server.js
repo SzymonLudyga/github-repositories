@@ -22,7 +22,18 @@ app.get("/repositories", async (req, res) => {
         responseType: 'json'
     });
 
-    res.send(response.data.items);
+    const responseData = response.data.items.map(el => {
+        const { id, name, html_url, description, owner } = el;
+        return {
+            id,
+            name,
+            html_url,
+            description,
+            owner: owner.login
+        };
+    });
+
+    res.send({ details: responseData });
 });
 
 app.post("/bookmarks/:id", async (req, res) => {
@@ -56,9 +67,9 @@ app.get("/bookmarks", async (req, res) => {
 app.delete("/bookmarks/:id", async (req, res) => {
     const id = parseInt(req.params.id);
 
-    repositoriesController.deleteBookmark(id);
+    const bookmarks = repositoriesController.deleteBookmark(id);
 
-    res.send({ status: "OK" });
+    res.send(bookmarks);
 });
 
 app.listen(port, () => {

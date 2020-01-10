@@ -1,7 +1,8 @@
-import { BOOKMARKS_RECEIVED } from '../actions/bookmark'
+import { BOOKMARKS_RECEIVED, BOOKMARKS_FETCHING } from '../actions/bookmark'
 
 const initialState = {
-    bookmarks: []
+    bookmarks: [],
+    fetchingBookmarks: false
 };
 
 export default function bookmark(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function bookmark(state = initialState, action) {
             ...state,
             bookmarks: action.bookmarks
         };
+    } else if (action.type === BOOKMARKS_FETCHING) {
+        return {
+            ...state,
+            fetchingBookmarks: action.fetching
+        }
     }
     return state;
 };

@@ -6,12 +6,17 @@ import Bookmark from '../components/Bookmark';
 import { fetchBookmarks, removeBookmark } from '../actions/bookmark'
 
 const styles = () => ({
-    
+    loading: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 function mapStateToProps(state) {
     return {
-        bookmarks: state.bookmark.bookmarks
+        bookmarks: state.bookmark.bookmarks,
+        fetching: state.bookmark.fetchingBookmarks
     };
 }
 

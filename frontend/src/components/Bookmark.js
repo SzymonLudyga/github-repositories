@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Typography, Divider } from '@material-ui/core';
-import route from '../routing/route'
+import { CircularProgress } from '@material-ui/core';
+import Row from './Row';
+import Header from './Header';
 
 export default class Bookmark extends Component {
     componentDidMount() {
@@ -9,25 +10,27 @@ export default class Bookmark extends Component {
     }
 
     render() {
+        const { history, classes, removeBookmark, bookmarks, fetching } = this.props;
         return (
-            <div>
-                <Typography key={1} variant="h3">Bookmarks</Typography>
-                <Button onClick={() => this.props.history.push(route.home)}>Repositories</Button>
-                <Divider />
-                {this.props.bookmarks && this.props.bookmarks.map(bookmark => (
-                    <>
-                        <Typography
-                            variant="h6"
-                            key={bookmark.id}
-                        >
-                            {bookmark.name} ({bookmark.owner})
-                        </Typography>
-                        <Button onClick={() => this.props.removeBookmark(bookmark.id)}>Remove Bookmark</Button>
-                    </>
+            <>
+                <Header bookmark history={history} />
+                {fetching ? (
+                    <div className={classes.loading}>
+                        <CircularProgress />
+                    </div>
+                ) : bookmarks.map(bookmark => (
+                    <Row item={bookmark} removeBookmark={removeBookmark} />
                 ))}
-            </div>
+            </>
         );
     }
 }
 
-Bookmark.propTypes = {};
+Bookmark.propTypes = {
+    classes: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    fetchBookmarks: PropTypes.func.isRequired,
+    removeBookmark: PropTypes.func.isRequired,
+    fetching: PropTypes.bool.isRequired,
+    bookmarks: PropTypes.array.isRequired
+};
