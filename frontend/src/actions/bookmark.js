@@ -2,6 +2,7 @@ import { apiCall } from '../api/api';
 
 export const BOOKMARKS_RECEIVED = 'BOOKMARKS_RECEIVED'
 export const BOOKMARKS_FETCHING = 'BOOKMARKS_FETCHING'
+export const ERROR = 'ERROR'
 
 const _bookmarksReceived = bookmarks => {
     return {
@@ -17,12 +18,24 @@ const _loadingIndicator = fetching => {
     };
 }
 
+export const handleError = error => {
+    return {
+        type: ERROR,
+        error,
+    };
+}
+
 export const addBookmark = id => {
     return async (dispatch) => {
+        dispatch(_loadingIndicator(true));
         try {
             const res = await apiCall('post', `bookmarks/${id}`);
+            if (res.status === 200) {
+                dispatch(_loadingIndicator(false));
+            }
         } catch (e) {
-            console.log(e);
+            dispatch(_loadingIndicator(false));
+            dispatch(handleError(e.response.data.error));
         }
     };
 }
@@ -36,7 +49,7 @@ export const fetchBookmarks = () => {
             dispatch(_bookmarksReceived(res.data));
         } catch (e) {
             dispatch(_loadingIndicator(false));
-            console.log(e);
+            dispatch(handleError(e.response.data.error));
         }
     };
 }
@@ -49,8 +62,8 @@ export const removeBookmark = id => {
             dispatch(_loadingIndicator(false));
             dispatch(_bookmarksReceived(res.data));
         } catch (e) {
-            console.log(e);
             dispatch(_loadingIndicator(false));
+            dispatch(handleError(e.response.data.error));
         }
     };
 }

@@ -14,13 +14,14 @@ const fetchBookmarks = () => {
 
 const addBookmark = bookmark => {
     let data = fetchBookmarks();
-    if (!data.some(el => el.id === bookmark.id)) {
-        data.push(bookmark);
-        fs.writeFileSync(
-            path.join(__dirname, "../data/repositories.json"),
-            JSON.stringify(data)
-        );
+    if (data.some(el => el.id === bookmark.id)) {
+        throw new Error('duplicate');
     }
+    data.push(bookmark);
+    fs.writeFileSync(
+        path.join(__dirname, "../data/repositories.json"),
+        JSON.stringify(data)
+    );
 };
 
 const deleteBookmark = id => {

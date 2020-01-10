@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Bookmark from '../components/Bookmark';
 
-import { fetchBookmarks, removeBookmark } from '../actions/bookmark'
+import { fetchBookmarks, removeBookmark, handleError } from '../actions/bookmark'
+
 
 const styles = () => ({
     loading: {
@@ -16,7 +17,8 @@ const styles = () => ({
 function mapStateToProps(state) {
     return {
         bookmarks: state.bookmark.bookmarks,
-        fetching: state.bookmark.fetchingBookmarks
+        fetching: state.bookmark.fetchingBookmarks,
+        errorMessage: state.error.errorMessage
     };
 }
 
@@ -24,6 +26,7 @@ function mapDispatchToProps(dispatch) {
     return {
         fetchBookmarks: () => dispatch(fetchBookmarks()),
         removeBookmark: id => dispatch(removeBookmark(id)),
+        hideErrorModal: () => dispatch(handleError(null))
     };
 }
 

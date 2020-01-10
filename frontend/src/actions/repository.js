@@ -1,4 +1,5 @@
 import { apiCall } from '../api/api';
+import { handleError } from './bookmark';
 
 export const REPOSITORIES_RECEIVED = 'REPOSITORIES_RECEIVED'
 export const REPOSITORIES_FETCHING = 'REPOSITORIES_FETCHING'
@@ -8,6 +9,12 @@ const _repositoriesReceived = repositories => {
         type: REPOSITORIES_RECEIVED,
         repositories,
     };
+}
+
+export const clearRepositories = () => {
+    return (dispatch) => {
+        dispatch(_repositoriesReceived([]));
+    }
 }
 
 const _loadingIndicator = fetching => {
@@ -26,7 +33,7 @@ export const fetchRepositories = query => {
             dispatch(_repositoriesReceived(res.data.details));
         } catch (e) {
             dispatch(_loadingIndicator(false));
-            console.log(e);
+            dispatch(handleError(e.response.data.error));
         }
     };
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, CircularProgress, TextField } from '@material-ui/core';
 import Row from './Row';
 import Header from './Header';
+import ErrorModal from './ErrorModal';
 
 export default class Home extends Component {
     constructor(props) {
@@ -11,6 +12,10 @@ export default class Home extends Component {
         this.state = {
             query: '',
         };
+    }
+
+    componentWillUnmount() {
+        this.props.clearRepositories();
     }
 
     _submit = () => {
@@ -30,7 +35,15 @@ export default class Home extends Component {
     }
 
     render() {
-        const { classes, history, addBookmark, fetching, repositories } = this.props;
+        const { 
+            classes, 
+            history, 
+            addBookmark, 
+            fetching, 
+            repositories,
+            errorMessage,
+            hideErrorModal
+        } = this.props;
         return (
             <>
                 <Header history={history} />
@@ -59,16 +72,25 @@ export default class Home extends Component {
                 ) : repositories.map(repository => (
                     <Row item={repository} addBookmark={addBookmark} />
                 ))}
+                {errorMessage && 
+                    <ErrorModal
+                        message={errorMessage}
+                        onSubmit={hideErrorModal}
+                    />
+                }
             </>
         );
     }
 }
 
 Home.propTypes = {
+    errorMessage: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    clearRepositories: PropTypes.func.isRequired,
     fetchRepositories: PropTypes.func.isRequired,
     addBookmark: PropTypes.func.isRequired,
+    hideErrorModal: PropTypes.func.isRequired,
     fetching: PropTypes.bool.isRequired,
     repositories: PropTypes.array.isRequired
 };
