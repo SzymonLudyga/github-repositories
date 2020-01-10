@@ -1,3 +1,5 @@
+/* eslint "no-undef": 0 */
+
 const expect = require('expect');
 const request = require('supertest');
 
@@ -49,7 +51,7 @@ describe('/bookmarks - adding and fetching bookmarks', () => {
 
     it('should get all bookmarks successfully', (done) => {
         request(app)
-            .get(`/bookmarks`)
+            .get('/bookmarks')
             .expect(200)
             .expect((res) => {
                 expect(res.body.length).toBe(1);
@@ -71,7 +73,7 @@ describe('/bookmarks - adding and fetching bookmarks', () => {
 
     it('should get the same number of bookmarks', (done) => {
         request(app)
-            .get(`/bookmarks`)
+            .get('/bookmarks')
             .expect(200)
             .expect((res) => {
                 expect(res.body.length).toBe(1);
@@ -96,7 +98,7 @@ describe('/bookmarks - deleting and fetching bookmarks', () => {
 
     it('should not get any bookmark after deletion', (done) => {
         request(app)
-            .get(`/bookmarks`)
+            .get('/bookmarks')
             .expect(200)
             .expect((res) => {
                 expect(res.body.length).toBe(0);
