@@ -1,5 +1,5 @@
 # Github repositories application backend
 
 In the backend directory:
-> npm i
-> npm start
+- npm i
+- npm start
