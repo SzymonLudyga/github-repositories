@@ -7,7 +7,8 @@ import ErrorModal from './ErrorModal';
 
 export default class Bookmark extends Component {
     componentDidMount() {
-        this.props.fetchBookmarks();
+        const { fetchBookmarks } = this.props;
+        fetchBookmarks();
     }
 
     render() {
@@ -16,7 +17,7 @@ export default class Bookmark extends Component {
             classes,
             removeBookmark,
             bookmarks,
-            fetching, 
+            fetching,
             errorMessage,
             hideErrorModal
         } = this.props;
@@ -27,15 +28,16 @@ export default class Bookmark extends Component {
                     <div className={classes.loading}>
                         <CircularProgress />
                     </div>
-                ) : bookmarks.map(bookmark => (
+                ) : bookmarks.map((bookmark) => (
                     <Row item={bookmark} removeBookmark={removeBookmark} />
                 ))}
-                {errorMessage && 
-                    <ErrorModal
-                        message={errorMessage}
-                        onSubmit={hideErrorModal}
-                    />
-                }   
+                {errorMessage
+                    && (
+                        <ErrorModal
+                            message={errorMessage}
+                            onSubmit={hideErrorModal}
+                        />
+                    )}
             </>
         );
     }

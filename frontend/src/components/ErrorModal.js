@@ -35,34 +35,32 @@ const ErrorModal = ({
     classes,
     message,
     onSubmit
-}) => {
-    return (
-        <Modal
-            className={classes.center}
-            open={message}
-        >
-            <Paper className={classes.container}>
-                <Typography
-                    className={classes.message}
-                    variant="h5"
-                    component="h3"
+}) => (
+    <Modal
+        className={classes.center}
+        open={message}
+    >
+        <Paper className={classes.container}>
+            <Typography
+                className={classes.message}
+                variant="h5"
+                component="h3"
+            >
+                {message}
+            </Typography>
+            <div>
+                <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="secondary"
+                    onClick={onSubmit}
                 >
-                    {message}
-                </Typography>
-                <div>
-                    <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="secondary"
-                        onClick={onSubmit}
-                    >
                         OK
-                    </Button>
-                </div>
-            </Paper>
-        </Modal>
-    );
-}
+                </Button>
+            </div>
+        </Paper>
+    </Modal>
+);
 
 ErrorModal.propTypes = {
     classes: PropTypes.object.isRequired,

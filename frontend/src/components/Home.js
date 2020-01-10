@@ -15,12 +15,14 @@ export default class Home extends Component {
     }
 
     componentWillUnmount() {
-        this.props.clearRepositories();
+        const { clearRepositories } = this.props;
+        clearRepositories();
     }
 
     _submit = () => {
         const { query } = this.state;
-        this.props.fetchRepositories(query);
+        const { fetchRepositories } = this.props;
+        fetchRepositories(query);
         this.setState({ query: '' });
     };
 
@@ -35,15 +37,16 @@ export default class Home extends Component {
     }
 
     render() {
-        const { 
-            classes, 
-            history, 
-            addBookmark, 
-            fetching, 
+        const {
+            classes,
+            history,
+            addBookmark,
+            fetching,
             repositories,
             errorMessage,
             hideErrorModal
         } = this.props;
+        const { message } = this.state;
         return (
             <>
                 <Header history={history} />
@@ -53,7 +56,7 @@ export default class Home extends Component {
                         autoFocus
                         onKeyDown={this._onEnter}
                         onChange={this._handleChange}
-                        value={this.state.message}
+                        value={message}
                         placeholder="Type in repository name..."
                     />
                     <Button
@@ -69,15 +72,16 @@ export default class Home extends Component {
                     <div className={classes.loading}>
                         <CircularProgress />
                     </div>
-                ) : repositories.map(repository => (
+                ) : repositories.map((repository) => (
                     <Row item={repository} addBookmark={addBookmark} />
                 ))}
-                {errorMessage && 
-                    <ErrorModal
-                        message={errorMessage}
-                        onSubmit={hideErrorModal}
-                    />
-                }
+                {errorMessage
+                    && (
+                        <ErrorModal
+                            message={errorMessage}
+                            onSubmit={hideErrorModal}
+                        />
+                    )}
             </>
         );
     }

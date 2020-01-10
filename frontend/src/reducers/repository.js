@@ -1,4 +1,4 @@
-import { REPOSITORIES_RECEIVED, REPOSITORIES_FETCHING } from '../actions/repository'
+import { REPOSITORIES_RECEIVED, REPOSITORIES_FETCHING } from '../actions/repository';
 
 const initialState = {
     repositories: [],
@@ -11,11 +11,11 @@ export default function repository(state = initialState, action) {
             ...state,
             repositories: action.repositories
         };
-    } else if (action.type === REPOSITORIES_FETCHING) {
+    } if (action.type === REPOSITORIES_FETCHING) {
         return {
             ...state,
             fetchingRepositories: action.fetching
-        }
+        };
     }
     return state;
-};
+}

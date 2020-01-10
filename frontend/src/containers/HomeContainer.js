@@ -3,8 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Home from '../components/Home';
 
-import { fetchRepositories, clearRepositories } from '../actions/repository'
-import { addBookmark, handleError } from '../actions/bookmark'
+import { fetchRepositories, clearRepositories } from '../actions/repository';
+import { addBookmark, handleError } from '../actions/bookmark';
 
 const styles = () => ({
     inputWithButton: {
@@ -38,8 +38,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         clearRepositories: () => dispatch(clearRepositories()),
-        fetchRepositories: query => dispatch(fetchRepositories(query)),
-        addBookmark: id => dispatch(addBookmark(id)),
+        fetchRepositories: (query) => dispatch(fetchRepositories(query)),
+        addBookmark: (id) => dispatch(addBookmark(id)),
         hideErrorModal: () => dispatch(handleError(null))
     };
 }

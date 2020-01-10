@@ -22,24 +22,22 @@ const styles = () => ({
     },
 });
 
-const Header = ({ classes, history, bookmark }) => {
-    return (
-        <>
-            <div className={classes.navbar}>
-                <Button
-                    className={classes.button}
-                    color="primary"
-                    onClick={() => history.push(bookmark ? route.home : route.bookmarks)}
-                >
-                    {bookmark ? 'Repositories' : 'Bookmarks'}
-                </Button>
-            </div>
-            <Typography className={classes.header} key={1} variant="h3">
-                {bookmark ? 'Bookmarks' : 'Github repositories search'}
-            </Typography>
-        </>
-    );
-}
+const Header = ({ classes, history, bookmark }) => (
+    <>
+        <div className={classes.navbar}>
+            <Button
+                className={classes.button}
+                color="primary"
+                onClick={() => history.push(bookmark ? route.home : route.bookmarks)}
+            >
+                {bookmark ? 'Repositories' : 'Bookmarks'}
+            </Button>
+        </div>
+        <Typography className={classes.header} key={1} variant="h3">
+            {bookmark ? 'Bookmarks' : 'Github repositories search'}
+        </Typography>
+    </>
+);
 
 Header.propTypes = {
     classes: PropTypes.object.isRequired,

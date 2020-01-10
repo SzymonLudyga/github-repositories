@@ -6,7 +6,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js",
-        "start:live": "nodemon server.js"
+        "start:live": "nodemon server.js",
+        "lint": "eslint .",
+        "format": "eslint --fix ."
     },
     "author": "Szymon Ludyga",
     "license": "ISC",
@@ -16,5 +18,11 @@
         "cors": "^2.8.5",
         "express": "^4.17.1"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb": "^18.0.1",
+        "eslint-plugin-import": "^2.19.1",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-react": "^7.17.0"
+    }
 }

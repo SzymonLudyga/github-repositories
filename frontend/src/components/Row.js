@@ -16,7 +16,7 @@ const styles = () => ({
     icon: {
         position: 'absolute',
         right: 0
-    }, 
+    },
     url: {
         color: 'black',
         fontWeight: 700,
@@ -26,45 +26,51 @@ const styles = () => ({
     }
 });
 
-const Row = ({ classes, item, addBookmark, removeBookmark }) => {
-    return (
-        <div className={classes.row}>
-            <Divider />
-            <Typography
-                variant="h4"
-            >
-                {item.name}
-                {addBookmark ? <IconButton
+const Row = ({
+    classes, item, addBookmark, removeBookmark
+}) => (
+    <div className={classes.row}>
+        <Divider />
+        <Typography
+            key={item.id}
+            variant="h4"
+        >
+            {item.name}
+            {addBookmark ? (
+                <IconButton
                     className={classes.icon}
                     onClick={() => addBookmark(item.id)}
                 >
                     <StarIcon />
-                </IconButton> : 
+                </IconButton>
+            ) : (
                 <IconButton
                     className={classes.icon}
                     onClick={() => removeBookmark(item.id)}
                 >
                     <DeleteIcon />
                 </IconButton>
-                }
-            </Typography>
-            <Typography
-                variant="subtitle1"
-            >
-                > {item.owner || item.owner.login}
-            </Typography>
-            <Typography
-                variant="subtitle2"
-                key={item.description}
-            >
-                {item.description}
-            </Typography>
-            <a className={classes.url} href={item.html_url}>
+            )}
+        </Typography>
+        <Typography
+            key={item.name}
+            variant="subtitle1"
+        >
+            &gt;
+            {' '}
+            {item.owner || item.owner.login}
+        </Typography>
+        <Typography
+            variant="subtitle2"
+            key={item.description}
+        >
+            {item.description}
+        </Typography>
+        <a className={classes.url} href={item.html_url}>
                 See this project here!
-            </a>
-        </div>
-    );
-}
+        </a>
+    </div>
+);
 
 Row.propTypes = {
     classes: PropTypes.object.isRequired,

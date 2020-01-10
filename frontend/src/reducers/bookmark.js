@@ -1,4 +1,4 @@
-import { BOOKMARKS_RECEIVED, BOOKMARKS_FETCHING } from '../actions/bookmark'
+import { BOOKMARKS_RECEIVED, BOOKMARKS_FETCHING } from '../actions/bookmark';
 
 const initialState = {
     bookmarks: [],
@@ -11,11 +11,11 @@ export default function bookmark(state = initialState, action) {
             ...state,
             bookmarks: action.bookmarks
         };
-    } else if (action.type === BOOKMARKS_FETCHING) {
+    } if (action.type === BOOKMARKS_FETCHING) {
         return {
             ...state,
             fetchingBookmarks: action.fetching
-        }
+        };
     }
     return state;
-};
+}

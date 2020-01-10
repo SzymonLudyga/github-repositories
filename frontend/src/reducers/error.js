@@ -1,4 +1,4 @@
-import { ERROR } from '../actions/bookmark'
+import { ERROR } from '../actions/bookmark';
 
 const initialState = {
     errorMessage: null,
@@ -12,4 +12,4 @@ export default function bookmark(state = initialState, action) {
         };
     }
     return state;
-};
+}

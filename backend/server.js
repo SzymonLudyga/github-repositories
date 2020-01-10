@@ -1,5 +1,6 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
 const cors = require('cors');
 
@@ -17,5 +18,5 @@ app.use('/repositories', repositories);
 app.use('/bookmarks', bookmarks);
 
 app.listen(port, () => {
-    console.log("Running on port " + port);
+    console.log(`Running on port ${port}`);
 });
