@@ -20,3 +20,5 @@ app.use('/bookmarks', bookmarks);
 app.listen(port, () => {
     console.log(`Running on port ${port}`);
 });
+
+module.exports = { app };
